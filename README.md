@@ -2,7 +2,7 @@
 
 BEVAI is a high-performance, multi-model AI forecasting system designed to predict regional beverage consumption volume. It leverages state-of-the-art machine learning and deep learning architectures to provide real-time market intelligence through an intuitive web dashboard.
 
-![Dashboard Preview](https://img.icons8.com/fluency/96/beverage.png)
+
 
 ## 🚀 Features
 
@@ -84,4 +84,4 @@ Model results are logged in `model_per.csv`. In recent benchmarks, the architect
 - **Prophet**: ~201M
 
 ---
-*Developed for Beverage Supply Chain Intelligence.*
+
