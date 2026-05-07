@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>BEVAI</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #424754; border-radius: 10px; }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#adc6ff",
+                      "on-primary": "#002e6a",
+                      "background": "#101415",
+                      "surface-bright": "#363a3b",
+                      "on-surface": "#e0e3e5",
+                      "surface-container-lowest": "#0b0f10",
+                      "surface-container-low": "#191c1e",
+                      "surface-container": "#1d2022",
+                      "surface-container-high": "#272a2c",
+                      "surface-container-highest": "#323537",
+                      "outline-variant": "#424754",
+                      "primary-container": "#4d8eff",
+                      "on-primary-container": "#00285d",
+                      "on-surface-variant": "#c2c6d6"
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
+<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col bg-surface-container-lowest shadow-md z-50 border-r border-outline-variant">
+    <div class="flex flex-col h-full">
+        <div class="px-8 py-10">
+            <h1 class="text-3xl font-black text-primary tracking-tighter uppercase italic">BEVAI</h1>
+        </div>
+        <nav class="flex-1 space-y-1">
+            <a class="bg-primary-container text-on-primary-container rounded mx-2 my-1 flex items-center gap-3 px-4 py-3" href="#">
+                <span class="material-symbols-outlined">analytics</span>
+                <span class="text-sm font-semibold">Demand Forecast</span>
+            </a>
+        </nav>
+        <div id="bestModelBadge" class="hidden mx-4 mb-6 p-4 rounded-xl bg-surface-container-high border border-primary/20">
+            <div class="flex items-center gap-2 mb-1">
+                <span class="material-symbols-outlined text-primary text-sm">stars</span>
+                <span class="text-[10px] font-black text-primary uppercase">Best Model</span>
+            </div>
+            <p id="bestModelName" class="text-xs font-bold text-on-surface">—</p>
+        </div>
+    </div>
+</aside>
+
+<header class="fixed top-0 right-0 left-64 h-16 z-40 bg-surface-bright border-b border-outline-variant shadow-sm flex items-center justify-between px-8">
+    <div class="flex items-center gap-8">
+        <span class="text-xl font-black text-primary tracking-tighter opacity-30 uppercase italic">BEVAI</span>
+    </div>
+    <div class="flex items-center gap-4">
+        <div class="text-right">
+             <p class="text-[10px] font-bold text-on-surface uppercase opacity-30">Status</p>
+             <p class="text-xs font-bold text-primary">Live Engine</p>
+        </div>
+    </div>
+</header>
+
+<main class="pl-64 pt-16 min-h-screen">
+    <div class="p-8 max-w-7xl mx-auto space-y-8">
+        <div class="flex items-end justify-between">
+            <div>
+                <h2 class="text-3xl font-extrabold text-on-surface tracking-tight">Demand Projections</h2>
+                <p class="text-on-surface-variant mt-1 text-sm">Automated beverage market intelligence.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <section class="lg:col-span-5 bg-surface-container-lowest p-6 rounded-xl shadow-xl border border-outline-variant flex flex-col">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+                    <h3 class="text-xl font-bold text-on-surface">AI Parameters</h3>
+                </div>
+                
+                <div class="space-y-5 flex-1">
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-on-surface">Model Architecture</label>
+                        <div class="relative">
+                            <select id="modelSelect" class="w-full appearance-none bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all">
+                            </select>
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined pointer-events-none text-on-surface-variant">expand_more</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-on-surface">Target Region</label>
+                        <div class="relative">
+                            <select id="stateSelect" class="w-full appearance-none bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all">
+                                <option disabled selected value="">Select state...</option>
+                                <option value="Alabama">Alabama</option><option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option><option value="Florida">Florida</option><option value="Georgia">Georgia</option><option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option><option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option><option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option><option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option><option value="Nebraska">Nebraska</option><option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option><option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option><option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option><option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+                            </select>
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined pointer-events-none text-on-surface-variant">expand_more</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-on-surface">Horizon (Max 5 Weeks)</label>
+                        <input id="stepsInput" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" value="4" min="1" max="5" type="number"/>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <button id="forecastBtn" class="w-full py-4 bg-primary text-on-primary font-black rounded-lg hover:brightness-110 transition-all flex items-center justify-center gap-2 group shadow-lg shadow-primary/10 tracking-widest">
+                        GENERATE
+                        <span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">bolt</span>
+                    </button>
+                </div>
+            </section>
+
+            <div class="lg:col-span-7 flex flex-col gap-8">
+                <div class="bg-surface-container-lowest p-6 rounded-xl shadow-xl border border-outline-variant h-full flex flex-col min-h-[400px]">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 id="resultTitle" class="text-xl font-bold text-on-surface">Inference Output</h3>
+                            <p id="resultSubtitle" class="text-xs text-on-surface-variant">Predicted weekly volume metrics</p>
+                        </div>
+                        <div class="p-3 bg-surface-container-high rounded-xl">
+                            <span class="material-symbols-outlined text-primary">analytics</span>
+                        </div>
+                    </div>
+                    
+                    <div id="resultsContainer" class="flex-1 flex flex-col">
+                        <div id="placeholder" class="flex-1 border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-8 text-center bg-surface-container-low/30">
+                            <div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-4 animate-pulse">
+                                <span class="material-symbols-outlined text-outline">insights</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-on-surface">Awaiting Input</h4>
+                            <p class="text-xs text-on-surface-variant mt-2 max-w-[240px]">Select a region to generate AI predictions.</p>
+                        </div>
+
+                        <div id="loading" class="hidden flex-1 flex flex-col items-center justify-center">
+                            <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+                            <p id="loadingText" class="text-xs text-on-surface-variant mt-4 font-bold tracking-widest uppercase italic">Inference...</p>
+                        </div>
+
+                        <div id="dataList" class="hidden flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                            <div class="space-y-3" id="forecastItems"></div>
+                        </div>
+                    </div>
+
+                    <div id="summaryFooter" class="hidden mt-6 pt-6 border-t border-outline-variant flex justify-between items-center">
+                        <div>
+                            <p class="text-[10px] font-bold text-on-surface-variant uppercase">Peak Predicted Volume</p>
+                            <p id="peakValue" class="text-lg font-bold text-primary">—</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-[10px] font-bold text-on-surface-variant uppercase">Market Sentiment</p>
+                            <p id="trendStatus" class="text-xs font-bold text-green-400">Stable</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    const forecastBtn = document.getElementById('forecastBtn');
+    const stateSelect = document.getElementById('stateSelect');
+    const modelSelect = document.getElementById('modelSelect');
+    const stepsInput = document.getElementById('stepsInput');
+    const placeholder = document.getElementById('placeholder');
+    const loading = document.getElementById('loading');
+    const loadingText = document.getElementById('loadingText');
+    const dataList = document.getElementById('dataList');
+    const forecastItems = document.getElementById('forecastItems');
+    const resultTitle = document.getElementById('resultTitle');
+    const summaryFooter = document.getElementById('summaryFooter');
+    const peakValue = document.getElementById('peakValue');
+    const trendStatus = document.getElementById('trendStatus');
+    const bestBadge = document.getElementById('bestModelBadge');
+    const bestName = document.getElementById('bestModelName');
+
+    async function loadModels() {
+        try {
+            const response = await fetch('/models');
+            const data = await response.json();
+            modelSelect.innerHTML = '';
+            data.models.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.name;
+                opt.innerText = m.name + (m.name === data.best ? ' (Best)' : '');
+                if (m.name === data.best) opt.selected = true;
+                modelSelect.appendChild(opt);
+            });
+            if (data.best) {
+                bestBadge.classList.remove('hidden');
+                bestName.innerText = data.best;
+            }
+        } catch (e) { console.error("Error loading models", e); }
+    }
+    loadModels();
+
+    forecastBtn.addEventListener('click', async () => {
+        const state = stateSelect.value;
+        let steps = parseInt(stepsInput.value);
+        const model = modelSelect.value;
+        if (!state) { alert('Please select a region'); return; }
+        
+        // Cap at 5 in frontend logic as well
+        if (steps > 5) steps = 5;
+
+        placeholder.classList.add('hidden');
+        dataList.classList.add('hidden');
+        summaryFooter.classList.add('hidden');
+        loading.classList.remove('hidden');
+        loadingText.innerText = `${model} Inference...`;
+        forecastBtn.disabled = true;
+        forecastBtn.classList.add('opacity-50');
+        try {
+            const response = await fetch('/forecast', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ state, steps, model })
+            });
+            const data = await response.json();
+            if (response.ok) renderForecast(data);
+            else { alert('Error: ' + data.error); placeholder.classList.remove('hidden'); }
+        } catch (error) { alert('An error occurred.'); placeholder.classList.remove('hidden'); }
+        finally { loading.classList.add('hidden'); forecastBtn.disabled = false; forecastBtn.classList.remove('opacity-50'); }
+    });
+
+    function renderForecast(data) {
+        resultTitle.innerText = `${data.model} Output: ${data.state}`;
+        forecastItems.innerHTML = '';
+        let maxVal = 0, firstVal = data.forecast[0].predicted_total, lastVal = data.forecast[data.forecast.length - 1].predicted_total;
+        data.forecast.forEach((item, index) => {
+            if (item.predicted_total > maxVal) maxVal = item.predicted_total;
+            const div = document.createElement('div');
+            div.className = 'bg-surface-container-low p-4 rounded-xl border border-outline-variant flex justify-between items-center hover:bg-surface-container-high transition-colors group cursor-default';
+            div.style.animation = `fadeIn 0.3s ease-out ${index * 0.05}s both`;
+            div.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-outline-variant">W${index + 1}</div>
+                    <div>
+                        <p class="text-xs font-bold text-on-surface">${new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
+                        <p class="text-[10px] text-on-surface-variant">${data.model}</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm font-bold text-on-surface">${item.predicted_total.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                    <p class="text-[10px] text-primary font-bold">VOL UNITS</p>
+                </div>`;
+            forecastItems.appendChild(div);
+        });
+        peakValue.innerText = maxVal.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        if (lastVal > firstVal * 1.05) { trendStatus.innerText = 'Strong Growth'; trendStatus.className = 'text-xs font-bold text-green-400'; }
+        else if (lastVal < firstVal * 0.95) { trendStatus.innerText = 'Declining Market'; trendStatus.className = 'text-xs font-bold text-red-400'; }
+        else { trendStatus.innerText = 'Stable Market'; trendStatus.className = 'text-xs font-bold text-blue-400'; }
+        dataList.classList.remove('hidden');
+        summaryFooter.classList.remove('hidden');
+    }
+</script>
+
+<style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</body>
+</html>
